@@ -13,38 +13,41 @@ O erro 404 no Vercel indica que a aplicação FastAPI não está sendo servida c
   "version": 2,
   "builds": [
     {
-      "src": "index.py",
+      "src": "main.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.py"
+      "dest": "/main.py"
     }
-  ],
-  "functions": {
-    "index.py": {
-      "runtime": "python3.9"
-    }
-  }
+  ]
 }
 ```
 
-### 2. Arquivo `index.py` Criado
+### 2. Criação do arquivo `main.py`
+
+O arquivo `main.py` foi criado na raiz do projeto seguindo as melhores práticas do Vercel:
 
 ```python
-#!/usr/bin/env python3
-"""
-Ponto de entrada para o Vercel
-Redireciona para a aplicação FastAPI
-"""
+import sys
+import os
+from pathlib import Path
 
+# Adicionar diretórios ao path
+current_dir = Path(__file__).parent
+sys.path.insert(0, str(current_dir))
+sys.path.insert(0, str(current_dir / "api"))
+
+# Importar a aplicação FastAPI
 from api.main import app
 
-# Exportar a aplicação para o Vercel
+# Esta é a variável que o Vercel procura
 app = app
 ```
+
+Este arquivo serve como ponto de entrada principal e configura corretamente os caminhos para importar a aplicação FastAPI.
 
 ### 3. Correções no `database.py`
 
