@@ -1,42 +1,31 @@
 #!/usr/bin/env python3
 """
 Ponto de entrada para o Vercel
-Redireciona para a aplicação FastAPI
+Configuração robusta com fallbacks
 """
-Running build in Washington, D.C., USA (East) – iad1
-Build machine configuration: 2 cores, 8 GB
-Cloning github.com/guifav/tech_challenger_1 (Branch: main, Commit: 90282e8)
-Skipping build cache, deployment was triggered without cache.
-Cloning completed: 308.000ms
-Running "vercel build"
-Vercel CLI 44.6.4
-Installing required dependencies...
-Installing required dependencies...
-Installing required dependencies...
-Build Completed in /vercel/output [45s]
-Deploying outputs...
-Deployment completed
-Uploading build cache [4.00 kB]...
-Build cache uploaded: 71.244ms
-Exiting build container
 
 import sys
 import os
 from pathlib import Path
 
-# Adicionar o diretório atual ao path
+# Adicionar diretórios ao path
 current_dir = Path(__file__).parent
 sys.path.insert(0, str(current_dir))
+sys.path.insert(0, str(current_dir / "api"))
 
 try:
     from api.main import app
-except ImportError:
-    # Fallback para ambiente Vercel
+except ImportError as e:
+    # Fallback usando importlib
     import importlib.util
-    spec = importlib.util.spec_from_file_location("main", current_dir / "api" / "main.py")
-    main_module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(main_module)
-    app = main_module.app
+    spec = importlib.util.spec_from_file_location("api.main", current_dir / "api" / "main.py")
+    if spec and spec.loader:
+        api_main = importlib.util.module_from_spec(spec)
+        sys.modules["api.main"] = api_main
+        spec.loader.exec_module(api_main)
+        app = api_main.app
+    else:
+        raise ImportError(f"Could not import api.main: {e}")
 
-# Exportar a aplicação para o Vercel
+# Esta é a variável que o Vercel procura
 handler = app
