@@ -6,27 +6,47 @@ O erro 404 no Vercel indica que a aplicação FastAPI não está sendo servida c
 
 ## Solução Implementada
 
-### 1. Arquivo `vercel.json` Criado
+### 1. Arquivo `vercel.json` Atualizado
 
 ```json
 {
   "version": 2,
   "builds": [
     {
-      "src": "api/main.py",
+      "src": "index.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/main.py"
+      "dest": "/index.py"
     }
-  ]
+  ],
+  "functions": {
+    "index.py": {
+      "runtime": "python3.9"
+    }
+  }
 }
 ```
 
-### 2. Correções no `database.py`
+### 2. Arquivo `index.py` Criado
+
+```python
+#!/usr/bin/env python3
+"""
+Ponto de entrada para o Vercel
+Redireciona para a aplicação FastAPI
+"""
+
+from api.main import app
+
+# Exportar a aplicação para o Vercel
+app = app
+```
+
+### 3. Correções no `database.py`
 
 - Adicionado suporte a múltiplos caminhos para o arquivo CSV
 - Compatibilidade com ambiente Vercel
