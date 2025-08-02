@@ -37,12 +37,8 @@ app.add_middleware(
 db = BooksDatabase()
 
 # Handler para Vercel
-def handler(request):
-    import uvicorn
-    from mangum import Mangum
-    
-    asgi_handler = Mangum(app)
-    return asgi_handler(request, {})
+from mangum import Mangum
+handler = Mangum(app)
 
 @app.on_event("startup")
 async def startup_event():
