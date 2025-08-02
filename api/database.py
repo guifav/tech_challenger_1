@@ -22,10 +22,21 @@ class BooksDatabase:
         try:
             # Buscar arquivo CSV na pasta data
             current_dir = Path(__file__).parent
-            csv_path = current_dir.parent / "data" / "books_data.csv"
+            # Tentar diferentes caminhos para compatibilidade com Vercel
+            possible_paths = [
+                current_dir.parent / "data" / "books_data.csv",  # Local
+                Path("data/books_data.csv"),  # Vercel
+                Path("../data/books_data.csv"),  # Alternativo
+            ]
             
-            if not csv_path.exists():
-                print(f"Arquivo CSV não encontrado em: {csv_path}")
+            csv_path = None
+            for path in possible_paths:
+                if path.exists():
+                    csv_path = path
+                    break
+            
+            if csv_path is None:
+                print("Arquivo CSV não encontrado em nenhum dos caminhos possíveis")
                 print("Execute o scraper primeiro: python scripts/scraper.py")
                 # Criar DataFrame vazio para evitar erros
                 self.df = pd.DataFrame(columns=['id', 'title', 'price', 'rating', 'availability', 'category', 'image_url', 'book_url'])
