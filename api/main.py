@@ -37,8 +37,8 @@ app.add_middleware(
 db = BooksDatabase()
 
 # Handler para Vercel
-from mangum import Mangum
-handler = Mangum(app)
+# from mangum import Mangum
+# handler = Mangum(app)
 
 @app.on_event("startup")
 async def startup_event():
