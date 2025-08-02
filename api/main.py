@@ -12,8 +12,8 @@ import os
 from pathlib import Path
 
 # Importar modelos
-from models import Book, BookSummary, Category, HealthStatus, StatsOverview, CategoryStats
-from database import BooksDatabase
+from .models import Book, BookSummary, Category, HealthStatus, StatsOverview, CategoryStats
+from .database import BooksDatabase
 
 # Configuração da aplicação
 app = FastAPI(
