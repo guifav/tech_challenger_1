@@ -1,17 +1,12 @@
 {
-  "functions": {
-    "api/*.py": {
-      "runtime": "python3.9"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/main.py"
+      "destination": "/api/main"
     },
     {
       "source": "/(.*)",
-      "destination": "/api/main.py"
+      "destination": "/api/main"
     }
   ]
 }
