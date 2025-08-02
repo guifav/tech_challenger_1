@@ -177,7 +177,7 @@ Este projeto é parte do Tech Challenge e está disponível para fins educaciona
 
 ## Contato
 
-Para dúvidas ou sugestões sobre este projeto, entre em contato através dos canais oficiais do curso.
+Para dúvidas ou sugestões sobre este projeto, entre em contato comigo. Procure no LinkedIn por Guilherme Favaron (https://www.linkedin.com/in/guilhermefavaron/) ou acesse www.guilhermefavaron.com.br 
 
 ---
 
