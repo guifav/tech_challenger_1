@@ -8,7 +8,7 @@ import os
 from typing import List, Optional, Dict, Any
 from pathlib import Path
 import asyncio
-from models import Book, BookSummary, Category, StatsOverview, CategoryStats
+from .models import Book, BookSummary, Category, StatsOverview, CategoryStats
 
 class BooksDatabase:
     """Classe para gerenciar dados de livros"""
