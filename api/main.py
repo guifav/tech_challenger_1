@@ -69,14 +69,6 @@ async def get_all_books(
         raise HTTPException(status_code=404, detail="Nenhum livro encontrado")
     return books
 
-@app.get("/api/v1/books/{book_id}", response_model=Book)
-async def get_book_by_id(book_id: int):
-    """Detalhes completos de um livro específico"""
-    book = await db.get_book_by_id(book_id)
-    if not book:
-        raise HTTPException(status_code=404, detail="Livro não encontrado")
-    return book
-
 @app.get("/api/v1/books/search", response_model=List[BookSummary])
 async def search_books(
     title: Optional[str] = Query(None, description="Buscar por título"),
@@ -142,6 +134,14 @@ async def get_books_by_price_range(
     if not books:
         raise HTTPException(status_code=404, detail="Nenhum livro encontrado na faixa de preço especificada")
     return books
+
+@app.get("/api/v1/books/{book_id}", response_model=Book)
+async def get_book_by_id(book_id: int):
+    """Detalhes completos de um livro específico"""
+    book = await db.get_book_by_id(book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="Livro não encontrado")
+    return book
 
 # Endpoint raiz
 @app.get("/")
