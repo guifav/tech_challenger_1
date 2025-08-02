@@ -24,9 +24,11 @@ class BooksDatabase:
             current_dir = Path(__file__).parent
             # Tentar diferentes caminhos para compatibilidade com Vercel
             possible_paths = [
+                current_dir / "books_data.csv",  # Pasta api (Vercel)
                 current_dir.parent / "data" / "books_data.csv",  # Local
-                Path("data/books_data.csv"),  # Vercel
+                Path("data/books_data.csv"),  # Vercel alternativo
                 Path("../data/books_data.csv"),  # Alternativo
+                Path("api/books_data.csv"),  # Vercel root
             ]
             
             csv_path = None
@@ -63,6 +65,10 @@ class BooksDatabase:
     
     async def get_books(self, page: int = 1, limit: int = 50) -> List[BookSummary]:
         """Retorna lista paginada de livros"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
@@ -86,6 +92,10 @@ class BooksDatabase:
     
     async def get_book_by_id(self, book_id: int) -> Optional[Book]:
         """Retorna um livro específico pelo ID"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None:
             return None
         
@@ -109,6 +119,10 @@ class BooksDatabase:
     async def search_books(self, title: Optional[str] = None, category: Optional[str] = None, 
                           page: int = 1, limit: int = 50) -> List[BookSummary]:
         """Busca livros por título e/ou categoria"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
@@ -140,6 +154,10 @@ class BooksDatabase:
     
     async def get_categories(self) -> List[Category]:
         """Retorna lista de categorias com contagem"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
@@ -156,6 +174,10 @@ class BooksDatabase:
     
     async def get_overview_stats(self) -> StatsOverview:
         """Retorna estatísticas gerais"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return StatsOverview(
                 total_books=0,
@@ -183,6 +205,10 @@ class BooksDatabase:
     
     async def get_category_stats(self) -> List[CategoryStats]:
         """Retorna estatísticas por categoria"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
@@ -205,6 +231,10 @@ class BooksDatabase:
     
     async def get_top_rated_books(self, limit: int = 10) -> List[BookSummary]:
         """Retorna livros com melhor avaliação"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
@@ -227,6 +257,10 @@ class BooksDatabase:
     async def get_books_by_price_range(self, min_price: float, max_price: float, 
                                       page: int = 1, limit: int = 50) -> List[BookSummary]:
         """Retorna livros dentro de uma faixa de preço"""
+        # Garante que a base esteja carregada
+        if not self.data_loaded:
+            await self.load_data()
+            
         if self.df is None or len(self.df) == 0:
             return []
         
