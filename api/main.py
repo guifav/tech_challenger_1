@@ -36,6 +36,14 @@ app.add_middleware(
 # Inicializar banco de dados
 db = BooksDatabase()
 
+# Handler para Vercel
+def handler(request):
+    import uvicorn
+    from mangum import Mangum
+    
+    asgi_handler = Mangum(app)
+    return asgi_handler(request, {})
+
 @app.on_event("startup")
 async def startup_event():
     """Carregar dados na inicialização"""
