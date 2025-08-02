@@ -2,14 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/main.py",
+      "src": "index.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/main.py"
+      "dest": "/index.py"
     }
-  ]
+  ],
+  "functions": {
+    "index.py": {
+      "runtime": "python3.9"
+    }
+  }
 }
