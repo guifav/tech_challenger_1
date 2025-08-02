@@ -2,11 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "main.py",
+      "src": "api/main.py",
       "use": "@vercel/python"
     }
   ],
+  "functions": {
+    "api/main.py": {
+      "includeFiles": "data/books_data.csv"
+    }
+  },
   "routes": [
-    { "src": "/(.*)", "dest": "/main.py" }
+    {
+      "src": "/(.*)",
+      "dest": "api/main.py"
+    }
   ]
 }
