@@ -378,5 +378,6 @@ flowchart TD
 - **Documentação**: [DOCS LINK](https://tech-challenger-1.vercel.app/api/docs)
 - **GitHub**: [REPOSITÓRIO](https://github.com/guifav/tech_challenger_1.git)
 - **Dataset**: [DATA SET](https://github.com/guifav/tech_challenger_1/blob/main/data/books_data.csv)
+- **Apresentacao**: [VIDEO](https://youtu.be/0UPtn1BMsTQ?si=VqZLD6QM9NNO7Jga)
 
 ---

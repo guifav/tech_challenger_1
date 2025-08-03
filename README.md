@@ -6,6 +6,8 @@ API pública para consulta de livros extraídos via web scraping do site [books.
 
 **Aluno: Guilherme Favaron**
 
+**Video de Apresentação deste Projeto**: [VIDEO](https://youtu.be/0UPtn1BMsTQ?si=VqZLD6QM9NNO7Jga)
+
 ## Funcionalidades
 
 - **Web Scraping**: Extração automatizada de dados de livros
