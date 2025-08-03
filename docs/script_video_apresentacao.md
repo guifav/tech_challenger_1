@@ -1,4 +1,4 @@
-# Script para Vídeo de Apresentação - Books API Tech Challenge
+# Apresentação do Tech Challenge 1
 
 **Aluno**: Guilherme Favaron  
 **Tech Challenge - Fase 1 - Machine Learning Engineering**
